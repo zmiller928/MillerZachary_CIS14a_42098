@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Grade Calculator</title>
+	</head>
+		
+	<body>
+		<script>
+			var testScore = 67;
+			var grade;
+			
+			grade=(testScore>=90)?"A":
+				  (testScore>=80)?"B":
+				  (testScore>=70)?"C":
+				  (testScore>=60)?"D":
+				  (testScore< 60)?"F":"";
+				 
+			var string="<h1>Test Score: "+testScore+"</h1>";
+			string+=   "<h1>Grade: "+grade+"</h1>";
+			document.write(string);
+		</script>
+	</body>
+</html>
+	
+
