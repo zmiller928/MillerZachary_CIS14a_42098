@@ -1,0 +1,42 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Paycheck Using If/Else</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="CSE HTML Validator (https://www.htmlvalidator.com/)">
+</head>
+
+<body>
+	<script>
+		//Declare Variables
+		
+		var hrsWrkd=50;			//Hours worked in hrs
+		var payRate=10;			//Pay rate in $'s/hr
+		var straightTime=20;	//Hour at which straight time ends
+		var doubleTime=20;		//Hour at which double time occurs
+		var tripleTime=40;		//Hour at which triple time occurs
+		var payChk;				//Pay check in $'s
+		
+		//Calculate the Paycheck and determine any overtime due
+		if(hrsWrkd<doubleTime) {
+			payChk=hrsWrkd*payRate;
+		}
+        else if(hrsWrkd<tripleTime) {
+        	payChk=doubleTime*payRate+2*payRate*(hrsWrkd-doubleTime);
+        }
+        else {
+        	payChk=(payRate*straightTime)+((payRate*2)*doubleTime)+((payRate*3)*(hrsWrkd-tripleTime));
+        }
+		
+		//Output the inputs and the calculation
+		var str="<h1>Hours worked = "+hrsWrkd+"</h1>";
+		str+=   "<h1>Pay Rate = $"+payRate+" $'s/hr</h1>";
+		str+=	"<h1>Straight time ends at "+straightTime+" hrs</h1>";
+		str+=   "<h1>Double time starts at "+doubleTime+"+ hrs</h1>";
+		str+=	"<h1>Triple time starts at "+tripleTime+"+ hrs</h1>";
+		str+=   "<h1>Pay Check = $"+payChk+"</h1>";
+		document.write(str);
+	</script>
+</body>
+</html>
