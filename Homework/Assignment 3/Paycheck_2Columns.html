@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Paycheck w/ 3 columns</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="CSE HTML Validator (https://www.htmlvalidator.com/)">
+</head>
+
+<body>
+	<script>
+		//Declare Variables
+		var hrLimit=80;				//Hours per week limit
+		var payRateBurger=10; 		//Pay rate $10/hr
+		var payRateOffice=15; 		//Pay rate $15/hr
+		var ovrtime=40;				//Hour at which double time occurs
+		var payChkBurger=[];	//Pay check array for Burger Flipper
+		var payChkOffice=[];		//Pay check array for Office Worker
+		var hours=[];				//Declare the hours array
+		
+		
+		//Output the inputs
+		var str=   	"<h1>Pay Rate for Burger Flipper = $"+payRateBurger+"/hr</h1>";
+		str+=		"<h1>Pay Rate for Office Worker = $"+payRateOffice+"/hr</h1>";
+		str+=   		"<h1>Overtime starts at "+ovrtime+" hrs</h1>";
+		document.write(str);
+		
+		//Calculate the Pay Check information first
+		for(var hrsWrkd=0, row=0; hrsWrkd<=hrLimit; hrsWrkd+=0.1, row++) {
+			//Calculate the paycheck for burger flipper
+			payChkBurger[row]=(hrsWrkd<ovrtime)?
+				hrsWrkd*payRateBurger:
+				ovrtime*payRateBurger+2*payRateBurger*(hrsWrkd-ovrtime);
+			
+			// Calculate the paycheck for office worker
+			payChkOffice[row]=(hrsWrkd<ovrtime)?
+				hrsWrkd*payRateOffice:
+				ovrtime*payRateOffice+2*payRateOffice*(hrsWrkd-ovrtime);
+			hours[row]=hrsWrkd;
+		}
+		
+		//Table Heading
+		str="<table border='1' style='width: auto'>";
+		str+="<tr><th>Hours</th><th>Burger Flipper $</th><th>Office Worker $</th></tr>";
+		
+		//Loop over all the hours that could be worked
+		for(var row=0; row<hours.length; row++) {
+          //Add the hours worked and the paycheck to the table string
+          str+="<tr>";
+          str+="<td><center>"+hours[row].toFixed(2)+"</center></td>";
+          str+="<td><center>"+payChkBurger[row].toFixed(2)+"</center></td>";
+		  str+="<td><center>"+payChkOffice[row].toFixed(2)+"</center></td>";
+                 str+="</tr>";
+		}
+		str+="</table>";
+		//Display the string
+		document.write(str);
+	</script>
+</body>
+</html>
+
