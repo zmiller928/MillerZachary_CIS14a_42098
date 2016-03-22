@@ -10,7 +10,7 @@
 		// Declare Variables
 		var hrsLimit = 72;			// Maxiumum Hours
 		var taxRate = .1;			// Tax rate
-		var payRate = prompt("What is your hourly pay rate?"); // Pay rate array
+		var payRate = 10; 			// Pay rate array
 		var straightTime = 20;	// Hours at which straight time ends
 		var doubleTime = 20;		// Hours at which double time starts
 		var tripleTime = 40;		// Hours at which triple time starts
@@ -28,20 +28,23 @@
 		document.write(str);
 		
 		// Calculations for payChk array
-		for (var hrsWrkd=0, row=0; hrsWrkd<=hrsLimit; hrsWrkd+=1, row++) {
-				if (payChk[row] = /* Check double time */ (hrsWrkd < doubleTime)) {
-					hrsWrkd * payrate; // Calculate straight time
-				} else if (hrsWrkd<tripleTime) {
-					doubleTime*payRate+2*payRate*(hrsWrkd-doubleTime);
+		for (var hrsWrkd=1, row=0; hrsWrkd<=hrsLimit; hrsWrkd+=1, row++) {
+				if (hrsWrkd<doubleTime) {
+					payChk[row] = hrsWrkd * payRate;
+					payRateCol[row] = payRate;
+					taxRateCol[row] = payChk[row] *  taxRate;
+				} else if (hrsWrkd<=tripleTime && hrsWrkd>=doubleTime) {
+					payChk[row] = doubleTime*payRate+2*payRate*(hrsWrkd-doubleTime);
+					payRateCol[row] = payRate * 2;
+					taxRateCol[row] = payChk[row] *  taxRate;
 				} else {
-					(payRate*straightTime)+((payRate*2)*doubleTime)+((payRate*3)*(hrsWrkd-tripleTime)); // Calculate triple time
-				}
-		}
-		
-		// Calculate tax rate???
-		taxRateCol[row] = payChk[row] * taxRate
-		// Calculate net pay???
-		netPay[row] = taxRateCol[row] - payChk
+					payChk[row] = (payRate*straightTime)+((payRate*2)*doubleTime)+((payRate*3)*(hrsWrkd-tripleTime));
+					payRateCol[row] = payRate * 3;
+					taxRateCol[row] = payChk[row] *  taxRate;
+				};
+		hours[row] = hrsWrkd;
+		netPay[row] = payChk[row] - taxRateCol[row];
+		};
 		
 		// Table headings
 		str="<table border='1' style='width: auto'>";
@@ -51,7 +54,7 @@
 		for(var row=0; row<hours.length; row++) {
           //Add the hours worked and the paycheck to the table string
           str+="<tr>";
-          str+="<td><center>"+hours[row]+"</center></td>";
+          str+="<td>"+hours[row]+"</td>";
           str+="<td><center>"+payChk[row].toFixed(2)+"</center></td>";
 		  str+="<td><center>"+payRateCol[row].toFixed(2)+"</center></td>";
 		  str+="<td><center>"+taxRateCol[row].toFixed(2)+"</center></td>";
