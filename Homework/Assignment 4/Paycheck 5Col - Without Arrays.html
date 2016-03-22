@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8" />
+        <title>Paycheck w/o Parallel Arrays</title>
+        <style>
+			h1 {
+				font-family: Verdana, Geneva, sans-serif;
+				font-size: 14px
+			}
+			
+			table {
+				border: inset;
+				font-family:Verdana, Geneva, sans-serif;
+				font-size: 12px;
+				text-align: right;
+			}
+			 {
+				text-align: left;
+			}
+		
+		</style>
+	</head>
+
+	<body>
+		<script>
+		// Declare Variables
+		var hrsLimit = 72;			// Maxiumum Hours
+		var taxRate = .1;			// Tax rate
+		var payRate = 10; 			// Pay rate
+		var payRate2 = 20;		// Double time pay rate
+		var payRate3 = 30;		// Triple time pay rate
+		var straightTime = 20;	// Hours at which straight time ends
+		var doubleTime = 20;		// Hours at which double time starts
+		var tripleTime = 40;		// Hours at which triple time starts
+		var payChk;					// Pay check array
+		var hours = 0;				// Hour array
+		var netPay = 0;				// Net pay array
+		var taxRateCol = 0;		// Tax rate array
+		
+		// Output the inputs
+		var str="<h1>Pay rate = $"+payRate+"/hr</h1>";
+		str+=	"<h1>Double time starts at "+doubleTime+"+/hrs</h1>";
+		str+=	"<h1>Triple time starts at "+tripleTime+"+/hrs</h1>";
+		str+=	"<h1>Tax rate: 10%</h1>";
+		document.write(str);
+		
+		// Table headings
+		str="<table border='1' style='width: auto'>";
+		str+="<tr><th>Hours</th><th>Gross Pay</th><th>Pay Rate</th><th>Tax 10%</th><th>Net Pay</th></tr>"; 
+
+		// Calculations for payChk array
+		for (var hrsWrkd=1, row=0; hrsWrkd<=hrsLimit; hrsWrkd+=1, row++) {
+				if (hrsWrkd<doubleTime) {
+					payChk = hrsWrkd * payRate; // Single time calculation
+					payRate = payRate;
+				} else if (hrsWrkd<=tripleTime && hrsWrkd>=doubleTime) {
+					payChk = doubleTime*payRate+2*payRate*(hrsWrkd-doubleTime); // Double time calculation
+					payRate = payRate2;
+				} else {
+					payChk = (payRate*straightTime)+((payRate*2)*doubleTime)+((payRate*3)*(hrsWrkd-tripleTime)); // Triple time calculation
+					payRate = payRate3;
+				};
+		hours = hrsWrkd;
+		taxRateCol = payChk *  taxRate; // Calculate taxes taken out of gross pay
+		netPay = payChk - taxRateCol;	// Calculate net pay
+		str+="<tr>";
+        str+="<td>"+hours+"</td>";
+        str+="<td>"+payChk.toFixed(2)+"</td>";
+		str+="<td>"+payRate.toFixed(2)+"</td>";
+		str+="<td>"+taxRateCol.toFixed(2)+"</td>";
+		str+="<td>"+netPay.toFixed(2)+"</td>";
+                 str+="</tr>";
+		
+		};
+				str+="</table>";
+		//Display the string
+		document.write(str);
+		</script>
+	</body>
+</html>
