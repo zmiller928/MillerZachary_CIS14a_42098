@@ -27,16 +27,16 @@
 		// Declare Variables
 		var hrsLimit = 72;			// Maxiumum Hours
 		var taxRate = .1;			// Tax rate
-		var payRate = 10; 			// Pay rate
+		var payRate = prompt("What is your hourly rate?") * 1; 			// Pay rate
 		var payRate2 = 20;		// Double time pay rate
 		var payRate3 = 30;		// Triple time pay rate
 		var straightTime = 20;	// Hours at which straight time ends
 		var doubleTime = 20;		// Hours at which double time starts
 		var tripleTime = 40;		// Hours at which triple time starts
-		var payChk;					// Pay check array
-		var hours = 0;				// Hour array
-		var netPay = 0;				// Net pay array
-		var taxRateCol = 0;		// Tax rate array
+		var payChk;					// Pay check
+		var hours = 0;				// Hour
+		var netPay = 0;				// Net pay
+		var taxRateCol = 0;		// Tax rate 
 		
 		// Output the inputs
 		var str="<h1>Pay rate = $"+payRate+"/hr</h1>";
