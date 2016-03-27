@@ -28,12 +28,12 @@
 		document.write(str);
 		
 		// Calculations for payChk array
-		for (var hrsWrkd=1, row=0; hrsWrkd<=hrsLimit; hrsWrkd+=1, row++) {
+		for (var hrsWrkd=1, row=0; hrsWrkd<=hrsLimit; hrsWrkd+=.500, row++) {
 				if (hrsWrkd<doubleTime) {
 					payChk[row] = hrsWrkd * payRate;
 					payRateCol[row] = payRate;
 					taxRateCol[row] = payChk[row] *  taxRate;
-				} else if (hrsWrkd<=tripleTime && hrsWrkd>=doubleTime) {
+				} else if (hrsWrkd<tripleTime ) {
 					payChk[row] = doubleTime*payRate+2*payRate*(hrsWrkd-doubleTime);
 					payRateCol[row] = payRate * 2;
 					taxRateCol[row] = payChk[row] *  taxRate;

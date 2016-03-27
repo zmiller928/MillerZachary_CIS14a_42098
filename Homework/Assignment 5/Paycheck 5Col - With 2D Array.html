@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8" />
+        <title>Paycheck w/ Parallel Arrays using MVC concept</title>
+	</head>
+
+	<body>
+		<script>
+		// Declare Variables
+		var hrsLimit = 72;			// Maxiumum Hours
+		var taxRate = prompt("What is your tax rate percentage?");			// Tax rate
+		var payRate = prompt("What is your hourly rate?") * 1; 			// Pay rate array
+		var straightTime = 20;	// Hours at which straight time ends
+		var doubleTime = 20;		// Hours at which double time starts
+		var tripleTime = 40;		// Hours at which triple time starts
+		var payTable = [];			// Pay table array
+		
+		// Output the inputs
+		var str="<h1>Pay rate = $"+payRate+"/hr</h1>";
+		str+=	"<h1>Double time starts at "+doubleTime+"+/hrs</h1>";
+		str+=	"<h1>Triple time starts at "+tripleTime+"+/hrs</h1>";
+		str+=	"<h1>Tax rate: "+taxRate+"%</h1>";
+		document.write(str);
+		
+		// Calculations for payChk array
+		var rows=hrsLimit;
+		var cols = 5;
+		//Creates our rows
+		for(var i=0;i<rows;i++){
+				payTable[i]=[];
+		}
+		
+		//Fill our array
+		for (var hrsWrkd=1, i=0; hrsWrkd<=hrsLimit; hrsWrkd++, i++) {
+			for(var j=0;j<cols;j++){
+				switch(j){
+					//Column 1: Hours Worked
+					case 0: {
+								payTable[i][j]=(hrsWrkd);
+								break;
+					}
+					//Column 2: Calculate gross pay
+					case 1:{
+								if(hrsWrkd<doubleTime){
+									//Calculates straight time
+									payTable[i][j]=(hrsWrkd * payRate).toFixed(2);
+								}else if(hrsWrkd<tripleTime){
+									//Calculates double time
+									payTable[i][j]=((doubleTime*payRate+2*payRate*(hrsWrkd-doubleTime))).toFixed(2);
+								}else{
+									//Calculates triple time
+									payTable[i][j]=((payRate*straightTime)+((payRate*2)*doubleTime)+((payRate*3)*(hrsWrkd-tripleTime))).toFixed(2);
+								}
+								break;
+					}
+					//Column 3: Pay Rate depending on hours worked
+					case 2:{
+								payTable[i][j]=(payRate*(hrsWrkd<doubleTime?1:(hrsWrkd<tripleTime?2:3)));
+								break;
+								}
+					//Column 4: Calculate Taxes
+					case 3:{
+								payTable[i][j]=((taxRate/100)*payTable[i][1]).toFixed(2);
+								break;
+								}
+					//Column 5: Calculate Net Pay
+					case 4:{
+								payTable[i][j]=(payTable[i][1]-payTable[i][3]).toFixed(2);
+								break;
+								}
+					default: alert("You fucked up!");
+				}
+			}
+		}
+		
+		// Table headings
+		str="<table border='1' style='width: auto'>";
+		str+="<tr><th>Hours</th><th>Gross Pay</th><th>Pay Rate(per hour)</th><th>Tax "+taxRate+"%</th><th>Net Pay</th></tr>"; 
+		
+		// Loop over all hours that can be worked
+		for(var i=0; i<hrsLimit; i++) {
+          	//Add the hours worked and the paycheck to the table string
+			str+="<tr>";
+		  	for(var j=0;j<cols;j++){
+				str+="<td><center>"+payTable[i][j]+"</center></td>";
+		  	}
+              str+="</tr>";
+		}
+		str+="</table>";
+		//Display the string
+		document.write(str);
+		</script>
+	</body>
+</html>
